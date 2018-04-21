@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - opponent
+  - PauseCanvas
   layers:
   - Default
   - TransparentFX
