@@ -62,11 +62,8 @@ public class Controller : MonoBehaviour
     void FixedUpdate ()
     {
         Vector2 movement = Vector2.zero;   
-
-        movement.x = Input.GetAxis("Horizontal") * movementSpeed;            
-
-        movement.y = Input.GetAxis("Vertical") * movementSpeed;        
-
+        movement.x = Input.GetAxis("Horizontal") * movementSpeed;
+        movement.y = Input.GetAxis("Vertical") * movementSpeed;   
         myRB.MovePosition(myRB.position + movement * Time.fixedDeltaTime);
     }
 
