@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Movement : MonoBehaviour
+public class Controller : MonoBehaviour
 {
 
     public float movementSpeed;
@@ -14,9 +14,17 @@ public class Movement : MonoBehaviour
     {
         myRB = GetComponent<Rigidbody2D>();
 	}
-	
-	// Update is called once per frame
-	void FixedUpdate ()
+
+    private void Update()
+    {
+        if (Input.GetKey(KeyCode.Space) || Input.GetButton("Fire1"))
+        {
+            Debug.Log("Punch !!!");
+        }
+    }
+
+    // Update is called once per frame
+    void FixedUpdate ()
     {
         Vector2 movement = Vector2.zero;
         if (Input.GetAxis("Horizontal") != 0)
