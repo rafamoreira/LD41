@@ -9,50 +9,59 @@ public class OpponentBehavior : MonoBehaviour {
     public OpponentType opponentType;
     public float speed;
 
-    PlayerPosition pPosition;
-    
+    PlayerCondition pCondition;
+    bool isActive;
 
 	// Use this for initialization
 	void Start () {
-        pPosition = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerPosition>();
+        pCondition = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCondition>();
 
-    
         speed = Random.Range(0.1f, 1.5f);
-    
+        isActive = true;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (opponentType == OpponentType.FW && pPosition.currentPlayerPos > 0)
+        if(isActive)
         {
-            Chase();
-        }
-        else if (opponentType == OpponentType.MAC && pPosition.currentPlayerPos > 1)
-        {
-            Chase();
-        }
-        else if (opponentType == OpponentType.MC && pPosition.currentPlayerPos > 2)
-        {
-            Chase();
-        }
-        else if (opponentType == OpponentType.MDC && pPosition.currentPlayerPos > 3)
-        {
-            Chase();
-        }
-        else if (opponentType == OpponentType.DC && pPosition.currentPlayerPos > 4)
-        {
-            Chase();
-        }
-        else if (opponentType == OpponentType.GK && pPosition.currentPlayerPos > 5)
-        {
-            Chase();
+            if (opponentType == OpponentType.FW && pCondition.currentPlayerPos > 0)
+            {
+                Chase();
+            }
+            else if (opponentType == OpponentType.MAC && pCondition.currentPlayerPos > 1)
+            {
+                Chase();
+            }
+            else if (opponentType == OpponentType.MC && pCondition.currentPlayerPos > 2)
+            {
+                Chase();
+            }
+            else if (opponentType == OpponentType.MDC && pCondition.currentPlayerPos > 3)
+            {
+                Chase();
+            }
+            else if (opponentType == OpponentType.DC && pCondition.currentPlayerPos > 4)
+            {
+                Chase();
+            }
+            else if (opponentType == OpponentType.GK && pCondition.currentPlayerPos > 5)
+            {
+                Chase();
+            }
         }
 	}
 
     void Chase()
     {
-        //transform.LookAt(pPosition.transform);
-        transform.position = Vector2.MoveTowards(transform.position, pPosition.transform.position, speed * Time.deltaTime);
-        Debug.Log("Chase " + opponentType.ToString() + " " + gameObject.name);
+        transform.position = Vector2.MoveTowards(transform.position, pCondition.transform.position, speed * Time.deltaTime);
+    }
+
+    public void TakePunch()
+    {
+        Debug.Log("OUCH " + gameObject.name);
+
+        GetComponent<CapsuleCollider2D>().enabled = false;
+
+        isActive = false;
     }
 }

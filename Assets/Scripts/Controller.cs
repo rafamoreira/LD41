@@ -5,22 +5,31 @@ using UnityEngine;
 public class Controller : MonoBehaviour
 {
 
-    public float movementSpeed;
+    
     Rigidbody2D myRB;
+    PlayerCondition pCondition;
+    float punchTimer;
+
+    public float movementSpeed;
+    public float punchDelay;
 
 
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start ()
     {
         myRB = GetComponent<Rigidbody2D>();
+        pCondition = GetComponent<PlayerCondition>();
+        punchTimer = 0;
 	}
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.Space) || Input.GetButton("Fire1"))
+        if (punchTimer <= 0 && (Input.GetKey(KeyCode.Space) || Input.GetButton("Fire1")))
         {
-            Debug.Log("Punch !!!");
+            Punch();
         }
+
+        punchTimer -= Time.deltaTime;
     }
 
     // Update is called once per frame
@@ -38,5 +47,19 @@ public class Controller : MonoBehaviour
         }
 
         myRB.MovePosition(myRB.position + movement * Time.fixedDeltaTime);
+    }
+
+    void Punch()
+    {
+        if (pCondition.opInContact.Count > 0)
+        {
+            // get the index of opponentsInContact array
+            int randomPunch = Random.Range(0, pCondition.opInContact.Count);
+            // send now the index of players on the opponents manager
+            OpponentManager.Instance.GivePunch(pCondition.opInContact[randomPunch]);
+            // remove the opponent from the opponentsInContact array on player condition
+            pCondition.OpponentPunched(randomPunch);
+        }
+        punchTimer = punchDelay;
     }
 }

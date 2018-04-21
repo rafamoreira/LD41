@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerPosition : MonoBehaviour {
+public class PlayerCondition : MonoBehaviour {
 
     public int currentPlayerPos;
+    public int health;
+    public List<int> opInContact = new List<int>();
+
     // positions from 0 to 7
 	// Use this for initialization
 	void Start () {
@@ -37,5 +40,28 @@ public class PlayerPosition : MonoBehaviour {
         {
             currentPlayerPos = 6;
         }
+
+        //Debug.Log(opInContact.Count);
 	}
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag == "opponent")
+        {
+            opInContact.Add(OpponentManager.Instance.opponents.IndexOf(other.gameObject));
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.tag == "opponent")
+        {
+            opInContact.Remove(OpponentManager.Instance.opponents.IndexOf(other.gameObject));
+        }
+    }
+
+    public void OpponentPunched(int index)
+    {
+        //opInContact.RemoveAt(index);
+    }
 }
