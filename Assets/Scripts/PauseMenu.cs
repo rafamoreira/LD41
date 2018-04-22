@@ -18,7 +18,7 @@ public class PauseMenu : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKey(KeyCode.P)) {
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P)) {
             if (gamePaused) {
                 Resume();
             } else {
@@ -41,8 +41,7 @@ public class PauseMenu : MonoBehaviour {
 
     public void RestartPanel() {
         restartMenu.SetActive(true);
-        Time.timeScale = 0f;
-        gamePaused = true;
+        Time.timeScale = 0f;        
     }
 
     public void MainMenu() {

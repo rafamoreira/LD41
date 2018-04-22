@@ -23,6 +23,8 @@ public class OpponentBehavior : MonoBehaviour {
 
     float healthPercentage;
 
+
+
     // Use this for initialization
     void Start ()
     {
@@ -146,7 +148,7 @@ public class OpponentBehavior : MonoBehaviour {
 
     void ChaseAnim()
     {
-
+        SpriteRenderer sprite = GetComponent<SpriteRenderer>();
         if (pCondition.transform.position.y > transform.position.y + 0.2f)
         {
             // running up animation
@@ -167,15 +169,11 @@ public class OpponentBehavior : MonoBehaviour {
             animator.SetBool("VerticalBottom", false);
             animator.SetBool("Horizontal", true);
             if (pCondition.transform.position.x < transform.position.x) {
-                // Gambiara para manter o canvas sem inverter o tamanho
-                Transform child = GetComponentInChildren<Transform>();
-                Vector3 childScale = child.transform.localScale;
-                // Flipa o personagem
-                transform.localScale = new Vector3(myScale.x * -1, myScale.y, myScale.z);
-                // Desflipa o canvas
-                child.localScale = childScale;
+                
+                sprite.flipX = true;
+
             } else {
-                transform.localScale = myScale;
+                sprite.flipX = false;
             }
         }
     }
