@@ -17,12 +17,15 @@ public class Controller : MonoBehaviour
     public float punchDelay;
     public bool matchRunning;
 
+    SpriteRenderer sprite;
+
     // Use this for initialization
     void Start ()
     {
         animator = GetComponent<Animator>();
         myRB = GetComponent<Rigidbody2D>();
         pCondition = GetComponent<PlayerCondition>();
+        sprite = GetComponent<SpriteRenderer>();
         punchTimer = 0;
         myScale = transform.localScale;
         matchRunning = false;
@@ -59,9 +62,9 @@ public class Controller : MonoBehaviour
                 animator.SetBool("Vertical", false);
                 animator.SetBool("Horizontal", true);
                 if (Input.GetAxis("Horizontal") < 0)
-                    transform.localScale = new Vector3(myScale.x * -1, myScale.y, myScale.z);
+                    sprite.flipX = true;
                 else
-                    transform.localScale = myScale;
+                    sprite.flipX = false;
             }
             else
             {

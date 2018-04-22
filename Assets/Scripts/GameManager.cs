@@ -39,10 +39,14 @@ public class GameManager : MonoBehaviour {
         SceneManager.LoadScene("2");
     }
 
-
     public void OpponentDown()
     {
         opponentsDown += 1;
+    }
+    
+    public void ResetScore() {
+        goals = 0;
+        opponentsDown = 0;
     }
 
 }

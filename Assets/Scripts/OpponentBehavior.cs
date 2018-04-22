@@ -149,9 +149,9 @@ public class OpponentBehavior : MonoBehaviour {
 
             healthPercentage = (1f / initialHealth) * (float)health;
             healthIndicator.fillAmount = healthPercentage;
-            if (healthIndicator.fillAmount >= 0.5f) {
+            if (healthIndicator.fillAmount >= 0.8f) {
                 healthIndicator.color = Color.green;
-            } else if (healthIndicator.fillAmount >= .35f) {
+            } else if (healthIndicator.fillAmount >= .5f) {
                 healthIndicator.color = Color.yellow;
             } else {
                 healthIndicator.color = Color.red;

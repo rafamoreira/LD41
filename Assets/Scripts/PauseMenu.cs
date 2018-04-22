@@ -46,7 +46,7 @@ public class PauseMenu : MonoBehaviour {
 
     public void MainMenu() {
         // Got to main menu
-        SceneManager.LoadScene("NameOfTheScene");
+        SceneManager.LoadScene("MainMenu");
     }
     public void Exit() {
         Application.Quit();
@@ -54,7 +54,8 @@ public class PauseMenu : MonoBehaviour {
 
     public void Restart() {
         //Restart the game
-        SceneManager.LoadScene("LoadSameScene");
+        Scene scene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(scene.name);
     }
 
 
