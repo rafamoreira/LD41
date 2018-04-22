@@ -8,10 +8,15 @@ public class PlayerCondition : MonoBehaviour {
     public int health;
     public List<int> opInContact = new List<int>();
 
+    bool isInvincible;
+    float invincibleTimer;
+
     // positions from 0 to 7
 	// Use this for initialization
 	void Start () {
         currentPlayerPos = 0;
+        isInvincible = false;
+        invincibleTimer = 0;
 	}
 	
 	// Update is called once per frame
@@ -41,7 +46,15 @@ public class PlayerCondition : MonoBehaviour {
             currentPlayerPos = 6;
         }
 
-        //Debug.Log(opInContact.Count);
+        if(isInvincible)
+        {
+            invincibleTimer -= Time.deltaTime;
+
+            if(invincibleTimer <= 0)
+            {
+                isInvincible = false;
+            }
+        }
 	}
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -60,8 +73,26 @@ public class PlayerCondition : MonoBehaviour {
         }
     }
 
-    public void OpponentPunched(int index)
+    void Dead()
     {
-        //opInContact.RemoveAt(index);
+        Debug.Log("Morreu");
+    }
+
+    public void TakePunch()
+    {
+        if (!isInvincible)
+        {
+            health -= 1;
+
+            if (health <= 0)
+            {
+                Dead();
+            }
+            else
+            {
+                isInvincible = true;
+                invincibleTimer = 1f;
+            }
+        }
     }
 }

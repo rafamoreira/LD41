@@ -182,7 +182,7 @@ public class OpponentBehavior : MonoBehaviour {
 
     void PunchPlayer()
     {
-        Debug.Log("PUNCHO");
+        pCondition.TakePunch();
     }
 
     IEnumerator CheckPunchPlayer()

@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Controller : MonoBehaviour
 {
-
-    
     Rigidbody2D myRB;
     PlayerCondition pCondition;
     float punchTimer;
@@ -75,7 +73,6 @@ public class Controller : MonoBehaviour
             // send now the index of players on the opponents manager
             OpponentManager.Instance.GivePunch(pCondition.opInContact[randomPunch]);
             // remove the opponent from the opponentsInContact array on player condition
-            pCondition.OpponentPunched(randomPunch);
         }
         punchTimer = punchDelay;
     }
