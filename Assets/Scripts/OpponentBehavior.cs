@@ -11,13 +11,15 @@ public class OpponentBehavior : MonoBehaviour {
 
     PlayerCondition pCondition;
     bool isActive;
+    Animator animator;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
         pCondition = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCondition>();
 
         speed = Random.Range(0.1f, 1.5f);
         isActive = true;
+        animator = GetComponent<Animator>();
 	}
 	
 	// Update is called once per frame
@@ -53,8 +55,8 @@ public class OpponentBehavior : MonoBehaviour {
 
     void Chase()
     {
-        Debug.Log(Vector2.MoveTowards(transform.position, pCondition.transform.position, speed * Time.deltaTime));
         transform.position = Vector2.MoveTowards(transform.position, pCondition.transform.position, speed * Time.deltaTime);
+        ChaseAnim();
     }
 
     public void TakePunch()
@@ -64,5 +66,24 @@ public class OpponentBehavior : MonoBehaviour {
         GetComponent<CapsuleCollider2D>().enabled = false;
 
         isActive = false;
+    }
+
+    void ChaseAnim()
+    {
+
+        if (pCondition.transform.position.y > transform.position.y)
+        {
+            animator.SetBool("Vertical", true);
+            animator.SetBool("VerticalBottom", false);
+        }
+        else if (pCondition.transform.position.y < transform.position.y)
+        {
+            animator.SetBool("Vertical", true);
+            animator.SetBool("VerticalBottom", true);
+        }
+        else
+        {
+            Debug.Log("Anim sideways");
+        }
     }
 }
