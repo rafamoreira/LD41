@@ -8,12 +8,15 @@ public class OpponentBehavior : MonoBehaviour {
 
     public OpponentType opponentType;
     public float speed;
+    public int health;
+
 
     PlayerCondition pCondition;
-    bool isActive;
     Animator animator;
-
     Vector3 myScale;
+    bool isActive;
+    float stunClock;
+    bool isStunned;
 
     // Use this for initialization
     void Start () {
@@ -24,6 +27,9 @@ public class OpponentBehavior : MonoBehaviour {
         animator = GetComponent<Animator>();
 
         myScale = transform.localScale;
+        health = 3;
+        stunClock = 0.5f;
+        isStunned = false;
 	}
 	
 	// Update is called once per frame
@@ -55,6 +61,17 @@ public class OpponentBehavior : MonoBehaviour {
                 Chase();
             }
         }
+
+        if (isStunned)
+        {
+            stunClock -= Time.deltaTime;
+
+            if (stunClock <= 0)
+            {
+                isActive = true;
+                isStunned = false;
+            }
+        }
 	}
 
     void Chase()
@@ -65,10 +82,38 @@ public class OpponentBehavior : MonoBehaviour {
 
     public void TakePunch()
     {
-        Debug.Log("OUCH " + gameObject.name);
+        health -= 1;
 
+        if (health <= 0)
+        {
+            Dead();
+        }
+        else
+        {
+            Stun();
+        }
+    }
+
+    void Stun()
+    {
+        stunClock = 0.5f;
+        isActive = false;
+        isStunned = true;
+        IdleAnim();
+    }
+
+    void IdleAnim()
+    {
+
+        animator.SetBool("Vertical", false);
+        animator.SetBool("VerticalBottom", false);
+        animator.SetBool("Horizontal", false);
+    }
+
+    void Dead()
+    {
         GetComponent<CapsuleCollider2D>().enabled = false;
-
+        IdleAnim();
         isActive = false;
     }
 
