@@ -6,15 +6,14 @@ using UnityEngine.SceneManagement;
 public class PauseMenu : MonoBehaviour {
 
     public bool gamePaused;
-    GameObject pauseMenu;
-
-    
+    GameObject pauseMenu, restartMenu;    
 
     void Start() {
         pauseMenu = GameObject.FindGameObjectWithTag("PauseCanvas");
+        restartMenu = GameObject.FindGameObjectWithTag("RestartCanvas");
         pauseMenu.SetActive(false);
         gamePaused = false;
-        
+        restartMenu.SetActive(false);        
     }
 
 	// Update is called once per frame
@@ -40,12 +39,23 @@ public class PauseMenu : MonoBehaviour {
         gamePaused = true;
     }
 
+    public void RestartPanel() {
+        restartMenu.SetActive(true);
+        Time.timeScale = 0f;
+        gamePaused = true;
+    }
+
     public void MainMenu() {
         // Got to main menu
         SceneManager.LoadScene("NameOfTheScene");
     }
     public void Exit() {
         Application.Quit();
+    }
+
+    public void Restart() {
+        //Restart the game
+        SceneManager.LoadScene("LoadSameScene");
     }
 
 

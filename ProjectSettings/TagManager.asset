@@ -6,6 +6,7 @@ TagManager:
   tags:
   - opponent
   - PauseCanvas
+  - RestartCanvas
   layers:
   - Default
   - TransparentFX
