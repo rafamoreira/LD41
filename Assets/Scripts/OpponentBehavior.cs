@@ -73,13 +73,18 @@ public class OpponentBehavior : MonoBehaviour {
 
         if (pCondition.transform.position.y > transform.position.y)
         {
+            // running up animation
             animator.SetBool("Vertical", true);
             animator.SetBool("VerticalBottom", false);
+            animator.SetBool("Horizontal", false);
+            Debug.Log("check 1");
         }
         else if (pCondition.transform.position.y < transform.position.y)
         {
             animator.SetBool("Vertical", true);
             animator.SetBool("VerticalBottom", true);
+            animator.SetBool("Horizontal", false);
+            Debug.Log("check 2");
         }
         else
         {
