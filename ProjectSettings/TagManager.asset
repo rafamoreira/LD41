@@ -8,6 +8,8 @@ TagManager:
   - PauseCanvas
   - RestartCanvas
   - Gol
+  - ReplenishLife
+  - Bench
   layers:
   - Default
   - TransparentFX

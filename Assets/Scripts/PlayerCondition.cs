@@ -16,11 +16,16 @@ public class PlayerCondition : MonoBehaviour {
     public List<int> opInContact = new List<int>();
     public AudioClip ouchSound;
 
+    public GameObject directionsBench;
+
+    float replenishTimer = 3;
+
     public Image healthBar;
 
     // positions from 0 to 7
 	// Use this for initialization
 	void Start () {
+        directionsBench.SetActive(false);
         healthBar.color = Color.green;        
         health = initialHealth;
         currentPlayerPos = 0;
@@ -32,7 +37,18 @@ public class PlayerCondition : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (transform.position.y > -4.2 && currentPlayerPos < 1)
+        // Set the color of the healthbar.
+        float healthPercentage = (1f / initialHealth) * (float)health;
+        healthBar.fillAmount = healthPercentage;
+        if (healthBar.fillAmount >= 0.5f) {
+            healthBar.color = Color.green;
+        } else if (healthBar.fillAmount >= .35f) {
+            healthBar.color = Color.yellow;
+        } else {
+            healthBar.color = Color.red;
+        }
+
+        if (transform.position.y > -4.2 && currentPlayerPos < 1)
         {
             currentPlayerPos = 1;
         }
@@ -66,7 +82,9 @@ public class PlayerCondition : MonoBehaviour {
                 isInvincible = false;
             }
         }
-	}
+
+        replenishTimer -= Time.deltaTime;
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -78,6 +96,14 @@ public class PlayerCondition : MonoBehaviour {
         if (other.tag == "Gol")
         {
             GameManager.Instance.GoalScored();
+        }
+
+        if(other.tag == "Bench") {
+            directionsBench.SetActive(true);
+        }
+
+        if(other.tag == "ReplenishLife") {
+            ReplenishLife();
         }
     }
 
@@ -99,16 +125,6 @@ public class PlayerCondition : MonoBehaviour {
 
     public void TakePunch()
     {
-        float healthPercentage = (1f / initialHealth) * (float)health;
-        healthBar.fillAmount = healthPercentage;
-        if (healthBar.fillAmount >= 0.5f) {
-            healthBar.color = Color.green;
-        } else if (healthBar.fillAmount >= .35f) {
-            healthBar.color = Color.yellow;
-        } else {
-            healthBar.color = Color.red;
-        }
-
         if (!isInvincible)
         {
             audioPlayer.PlayOneShot(ouchSound);
@@ -125,6 +141,17 @@ public class PlayerCondition : MonoBehaviour {
                 isInvincible = true;
                 invincibleTimer = 1f;
             }
+        }
+    }
+
+    void ReplenishLife() {
+
+        if(health >= initialHealth) {
+            return;
+        }
+        if (replenishTimer <= 0) {
+            replenishTimer = 3;
+            health++;
         }
     }
 }
