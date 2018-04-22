@@ -105,8 +105,7 @@ public class StartMatch : MonoBehaviour {
         ambientSound.PlayOneShot(whisteSound, 1f);
         scoreBoard.SetActive(false);
         panelForTexts.SetActive(true);
-        textMatchStart.text = "Your Scored " + GameManager.Instance.goals + " goals, and punched " + 
-            GameManager.Instance.opponentsDown + " players";
+
         yield return new WaitForSeconds(3f);
         panelForTexts.SetActive(false);        
         pauseMenu.RestartPanel();
