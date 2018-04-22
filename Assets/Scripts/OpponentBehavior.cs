@@ -13,6 +13,8 @@ public class OpponentBehavior : MonoBehaviour {
     bool isActive;
     Animator animator;
 
+    Vector3 myScale;
+
     // Use this for initialization
     void Start () {
         pCondition = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCondition>();
@@ -20,6 +22,8 @@ public class OpponentBehavior : MonoBehaviour {
         speed = Random.Range(0.1f, 1.5f);
         isActive = true;
         animator = GetComponent<Animator>();
+
+        myScale = transform.localScale;
 	}
 	
 	// Update is called once per frame
@@ -71,24 +75,30 @@ public class OpponentBehavior : MonoBehaviour {
     void ChaseAnim()
     {
 
-        if (pCondition.transform.position.y > transform.position.y)
+        if (pCondition.transform.position.y > transform.position.y + 0.2f)
         {
             // running up animation
             animator.SetBool("Vertical", true);
             animator.SetBool("VerticalBottom", false);
             animator.SetBool("Horizontal", false);
-            Debug.Log("check 1");
         }
-        else if (pCondition.transform.position.y < transform.position.y)
+        else if (pCondition.transform.position.y < transform.position.y - 0.2f)
         {
+            // running down animation
             animator.SetBool("Vertical", true);
             animator.SetBool("VerticalBottom", true);
             animator.SetBool("Horizontal", false);
-            Debug.Log("check 2");
         }
-        else
+        else 
         {
-            Debug.Log("Anim sideways");
+            animator.SetBool("Vertical", false);
+            animator.SetBool("VerticalBottom", false);
+            animator.SetBool("Horizontal", true);
+            if (pCondition.transform.position.x < transform.position.x) {
+                transform.localScale = new Vector3(myScale.x * -1, myScale.y, myScale.z);
+            } else {
+                transform.localScale = myScale;
+            }
         }
     }
 }
