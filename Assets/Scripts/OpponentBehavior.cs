@@ -53,6 +53,7 @@ public class OpponentBehavior : MonoBehaviour {
 
     void Chase()
     {
+        Debug.Log(Vector2.MoveTowards(transform.position, pCondition.transform.position, speed * Time.deltaTime));
         transform.position = Vector2.MoveTowards(transform.position, pCondition.transform.position, speed * Time.deltaTime);
     }
 
