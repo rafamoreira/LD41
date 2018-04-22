@@ -21,9 +21,14 @@ public class OpponentBehavior : MonoBehaviour {
     int health;
     bool isChasing;
 
+    float healthPercentage;
+
     // Use this for initialization
     void Start ()
     {
+        //Set color of healthbar to green
+        healthIndicator.color = Color.green;
+
         pCondition = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCondition>();
 
         speed = Random.Range(0.1f, 1.5f);
@@ -99,8 +104,15 @@ public class OpponentBehavior : MonoBehaviour {
         else
         {
             Stun();
-            float healthPercentage = (1f / initialHealth) * (float)health;
+            healthPercentage = (1f / initialHealth) * (float)health;
             healthIndicator.fillAmount = healthPercentage;
+            if (healthIndicator.fillAmount >= 0.5f) {
+                healthIndicator.color = Color.green;
+            } else if (healthIndicator.fillAmount >= .35f) {
+                healthIndicator.color = Color.yellow;
+            } else {
+                healthIndicator.color = Color.red;
+            }
         }
 
 
@@ -155,7 +167,13 @@ public class OpponentBehavior : MonoBehaviour {
             animator.SetBool("VerticalBottom", false);
             animator.SetBool("Horizontal", true);
             if (pCondition.transform.position.x < transform.position.x) {
+                // Gambiara para manter o canvas sem inverter o tamanho
+                Transform child = GetComponentInChildren<Transform>();
+                Vector3 childScale = child.transform.localScale;
+                // Flipa o personagem
                 transform.localScale = new Vector3(myScale.x * -1, myScale.y, myScale.z);
+                // Desflipa o canvas
+                child.localScale = childScale;
             } else {
                 transform.localScale = myScale;
             }

@@ -20,7 +20,6 @@ public class Controller : MonoBehaviour
     void Start ()
     {
         animator = GetComponent<Animator>();
-        animator.SetBool("isIdleBottom", true);
         myRB = GetComponent<Rigidbody2D>();
         pCondition = GetComponent<PlayerCondition>();
         punchTimer = 0;
