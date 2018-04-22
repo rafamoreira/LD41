@@ -14,7 +14,6 @@ public class OpponentBehavior : MonoBehaviour {
 
     PlayerCondition pCondition;
     Animator animator;
-    Vector3 myScale;
     bool isActive;
     float stunClock;
     bool isStunned;
@@ -33,11 +32,13 @@ public class OpponentBehavior : MonoBehaviour {
 
         pCondition = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCondition>();
 
-        speed = Random.Range(0.1f, 1.5f);
+        if (opponentType == OpponentType.GK)
+            speed = 2;
+        else
+            speed = Random.Range(0.1f, 1.5f);
+
         isActive = false;
         animator = GetComponent<Animator>();
-
-        myScale = transform.localScale;
         health = initialHealth;
         stunClock = 0.5f;
         isStunned = true;
@@ -90,9 +91,47 @@ public class OpponentBehavior : MonoBehaviour {
 
     void Chase()
     {
-        transform.position = Vector2.MoveTowards(transform.position, pCondition.transform.position, speed * Time.deltaTime);
-        ChaseAnim();
-        isChasing = true;
+        if(opponentType == OpponentType.GK)
+        {
+            float pDistance = Vector3.Distance(transform.position, pCondition.transform.position);
+
+            if (pDistance < 1.5f)
+            {
+                transform.position = Vector2.MoveTowards(transform.position, pCondition.transform.position, speed * Time.deltaTime);
+                isChasing = true;
+                ChaseAnim();
+            }   
+            else
+            {
+                Vector2 moveDir = Vector2.MoveTowards(transform.position, new Vector3(0, 5.6f, 0), speed * Time.deltaTime);
+                transform.position = moveDir;
+                if (moveDir == new Vector2(0, 5.6f))
+                    IdleAnim();
+                else
+                    ChaseAnim();
+                
+
+                isChasing = false;
+            }
+                
+
+            Vector3 targetPos = transform.position;
+
+            if (transform.position.y < 4.5f)
+                targetPos.y = 4.5f;
+            if (transform.position.x > 2)
+                targetPos.x = 2;
+            if (transform.position.x < -2)
+                targetPos.x = -2;
+
+            transform.position = targetPos;
+        }
+        else
+        {
+            transform.position = Vector2.MoveTowards(transform.position, pCondition.transform.position, speed * Time.deltaTime);
+            ChaseAnim();
+            isChasing = true;
+        }
     }
 
     public void TakePunch()

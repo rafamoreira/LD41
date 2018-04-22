@@ -7,11 +7,12 @@ public class PlayerCondition : MonoBehaviour {
     bool isInvincible;
     float invincibleTimer;
     Controller pController;
+    AudioSource audioPlayer;
 
     public int currentPlayerPos;
     public int health;
     public List<int> opInContact = new List<int>();
-
+    public AudioClip ouchSound;
 
     // positions from 0 to 7
 	// Use this for initialization
@@ -20,6 +21,8 @@ public class PlayerCondition : MonoBehaviour {
         isInvincible = false;
         invincibleTimer = 0;
         pController = GameObject.FindGameObjectWithTag("Player").GetComponent<Controller>();
+        audioPlayer = GetComponent<AudioSource>();
+
 	}
 	
 	// Update is called once per frame
@@ -87,6 +90,7 @@ public class PlayerCondition : MonoBehaviour {
     {
         if (!isInvincible)
         {
+            audioPlayer.PlayOneShot(ouchSound);
             health -= 1;
 
             if (health <= 0)

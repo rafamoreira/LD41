@@ -9,7 +9,10 @@ public class Controller : MonoBehaviour
     float punchTimer;
     Animator animator;
     Vector3 myScale;
+    AudioSource audioPlayer;
 
+    public AudioClip punchSound;
+    public AudioClip missedPunchSound;
     public float movementSpeed;
     public float punchDelay;
     public bool matchRunning;
@@ -23,6 +26,7 @@ public class Controller : MonoBehaviour
         punchTimer = 0;
         myScale = transform.localScale;
         matchRunning = false;
+        audioPlayer = GetComponent<AudioSource>();
 	}
 
     private void Update()
@@ -88,6 +92,11 @@ public class Controller : MonoBehaviour
             // send now the index of players on the opponents manager
             OpponentManager.Instance.GivePunch(pCondition.opInContact[randomPunch]);
             // remove the opponent from the opponentsInContact array on player condition
+            audioPlayer.PlayOneShot(punchSound);
+        }
+        else
+        {
+            audioPlayer.PlayOneShot(missedPunchSound);
         }
         punchTimer = punchDelay;
     }
