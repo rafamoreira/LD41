@@ -26,17 +26,22 @@ public class GameManager : MonoBehaviour {
 
     private void Awake()
     {
-        DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(gameObject);        
     }
 
     public void GoalScored()
     {
-        StartMatch.Instance.StartCoroutine("GoalAnimation");
         OpponentManager.Instance.StopAll();
         GameObject.FindGameObjectWithTag("Player").GetComponent<Controller>().matchRunning = false;
-        Time.timeScale = 0;
         goals += 1;
-        SceneManager.LoadScene("2");
+        StartMatch.Instance.StartCoroutine("GoalAnimation");        
+        //Time.timeScale = 0;
+    }
+
+    public void NextScene() {
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
+                
+        SceneManager.LoadScene("Level" + currentSceneIndex);
     }
 
     public void OpponentDown()
@@ -48,5 +53,4 @@ public class GameManager : MonoBehaviour {
         goals = 0;
         opponentsDown = 0;
     }
-
 }

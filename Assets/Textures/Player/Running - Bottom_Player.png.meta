@@ -9,6 +9,8 @@ TextureImporter:
     21300004: Running - Bottom_Player_2
     21300006: Running - Bottom_Player_3
     21300008: Running - Bottom_Player_4
+    21300010: Running - Bottom_Player_5
+    21300012: Running - Bottom_Player_6
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -120,9 +122,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 24
-        y: 24
+        y: 14
         width: 18
-        height: 29
+        height: 39
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -134,9 +136,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 87
-        y: 23
-        width: 14
-        height: 27
+        y: 14
+        width: 16
+        height: 36
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -149,7 +151,7 @@ TextureImporter:
         serializedVersion: 2
         x: 156
         y: 9
-        width: 13
+        width: 20
         height: 37
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -162,9 +164,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 219
-        y: 21
+        y: 14
         width: 18
-        height: 28
+        height: 35
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -176,9 +178,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 284
-        y: 15
+        y: 14
         width: 15
-        height: 34
+        height: 35
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

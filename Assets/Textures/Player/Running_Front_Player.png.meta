@@ -122,7 +122,7 @@ TextureImporter:
         x: 21
         y: 11
         width: 20
-        height: 38
+        height: 39
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -133,10 +133,10 @@ TextureImporter:
       name: Running_Front_Player_1
       rect:
         serializedVersion: 2
-        x: 91
+        x: 90
         y: 6
-        width: 15
-        height: 41
+        width: 16
+        height: 44
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -147,10 +147,10 @@ TextureImporter:
       name: Running_Front_Player_2
       rect:
         serializedVersion: 2
-        x: 157
+        x: 156
         y: 6
-        width: 13
-        height: 42
+        width: 14
+        height: 44
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -178,7 +178,7 @@ TextureImporter:
         x: 280
         y: 7
         width: 15
-        height: 38
+        height: 43
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

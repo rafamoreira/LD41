@@ -9,6 +9,10 @@ TextureImporter:
     21300004: Running_Side_Player_2
     21300006: Running_Side_Player_3
     21300008: Running_Side_Player_4
+    21300010: Running_Side_Player_5
+    21300012: Running_Side_Player_6
+    21300014: Running_Side_Player_7
+    21300016: Running_Side_Player_8
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -120,9 +124,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 18
-        y: 16
-        width: 30
-        height: 26
+        y: 13
+        width: 40
+        height: 29
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -135,7 +139,7 @@ TextureImporter:
         serializedVersion: 2
         x: 91
         y: 13
-        width: 17
+        width: 27
         height: 28
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -148,9 +152,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 141
-        y: 15
-        width: 26
-        height: 28
+        y: 13
+        width: 37
+        height: 30
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -162,9 +166,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 206
-        y: 15
-        width: 35
-        height: 28
+        y: 13
+        width: 45
+        height: 30
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -179,6 +183,20 @@ TextureImporter:
         y: 16
         width: 23
         height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Running_Side_Player_5
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 13
+        width: 14
+        height: 14
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

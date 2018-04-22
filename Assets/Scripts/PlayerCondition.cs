@@ -113,6 +113,9 @@ public class PlayerCondition : MonoBehaviour {
         {
             opInContact.Remove(OpponentManager.Instance.opponents.IndexOf(other.gameObject));
         }
+        if (other.tag == "Bench") {
+            directionsBench.SetActive(false);
+        }
     }
 
     void Dead()
@@ -145,12 +148,13 @@ public class PlayerCondition : MonoBehaviour {
     }
 
     void ReplenishLife() {
-
+        print("enter replenish");
         if(health >= initialHealth) {
             return;
         }
         if (replenishTimer <= 0) {
             replenishTimer = 3;
+            print("Add a health");
             health++;
         }
     }

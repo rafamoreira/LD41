@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine.UI;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class StartMatch : MonoBehaviour {
 
@@ -34,32 +35,26 @@ public class StartMatch : MonoBehaviour {
     [Header("Pause Menu")]
     PauseMenu pauseMenu;
 
-    [Header("Debugging")]
-    public bool goalScoredTest;
-    public bool playerLost;
-
     Controller pController;
 
 	// Use this for initialization
 	void Start () {
-        pauseMenu = GetComponent<PauseMenu>();
-        StartCoroutine(StartMatchAnimation());
+       if(SceneManager.GetActiveScene().buildIndex <= 6) {            
+            StartCoroutine(StartMatchAnimation());
+            pController = GameObject.FindGameObjectWithTag("Player").GetComponent<Controller>();
+        }
+        pauseMenu = GetComponent<PauseMenu>();        
         ambientSound = GetComponent<AudioSource>();
         ambientSound.Play();
-        pController = GameObject.FindGameObjectWithTag("Player").GetComponent<Controller>();
+        
         Time.timeScale = 1;
-	}
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
         if (matchStarted) {
             StartMatchTime();
-        }
-        if (goalScoredTest) {
-            StartCoroutine(GoalAnimation());
-        }
-        if (playerLost) {
-            StartCoroutine(PlayerLostAnimation());
         }
 	}
 
@@ -92,7 +87,7 @@ public class StartMatch : MonoBehaviour {
         yield return new WaitForSeconds(3f);
         panelForTexts.SetActive(false);        
         scoreBoard.SetActive(true);
-        goalScoredTest = false;
+        GameManager.Instance.NextScene();
     }
 
     //Call this coroutine when a goal is scored
@@ -102,10 +97,21 @@ public class StartMatch : MonoBehaviour {
         panelForTexts.SetActive(true);
         textMatchStart.text = "You Lost";
         yield return new WaitForSeconds(3f);
-        panelForTexts.SetActive(false);
-        playerLost = false;
+        panelForTexts.SetActive(false);        
         pauseMenu.RestartPanel();
     }
+
+    public IEnumerator ShowScore() {
+        ambientSound.PlayOneShot(whisteSound, 1f);
+        scoreBoard.SetActive(false);
+        panelForTexts.SetActive(true);
+        textMatchStart.text = "Your Scored " + GameManager.Instance.goals + " goals, and punched " + 
+            GameManager.Instance.opponentsDown + " players";
+        yield return new WaitForSeconds(3f);
+        panelForTexts.SetActive(false);        
+        pauseMenu.RestartPanel();
+    }
+
 
     void StartMatchTime() {
         scoreBoard.SetActive(true);
