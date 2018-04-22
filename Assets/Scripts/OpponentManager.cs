@@ -23,6 +23,14 @@ public class OpponentManager : MonoBehaviour {
 
     public void GivePunch(int position)
     {
-        opponents[position].gameObject.GetComponent<OpponentBehavior>().TakePunch();
+        opponents[position].GetComponent<OpponentBehavior>().TakePunch();
+    }
+
+    public void StopAll()
+    {
+        foreach (GameObject opponent in opponents)
+        {
+            opponent.GetComponent<OpponentBehavior>().EndGame();
+        }
     }
 }

@@ -185,6 +185,15 @@ public class OpponentBehavior : MonoBehaviour {
         pCondition.TakePunch();
     }
 
+    public void EndGame()
+    {
+        isActive = false;
+        isChasing = false;
+        isStunned = false;
+        StopAllCoroutines();
+        IdleAnim();
+    }
+
     IEnumerator CheckPunchPlayer()
     {
         while(true)

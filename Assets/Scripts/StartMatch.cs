@@ -4,6 +4,21 @@ using UnityEngine;
 
 public class StartMatch : MonoBehaviour {
 
+    private static StartMatch _instance;
+
+    public static StartMatch Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = GameObject.FindObjectOfType<StartMatch>();
+            }
+
+            return _instance;
+        }
+    }
+
     float matchTime;
     bool matchStarted;
     [Header("Scoreboard")]
@@ -23,12 +38,15 @@ public class StartMatch : MonoBehaviour {
     public bool goalScoredTest;
     public bool playerLost;
 
+    Controller pController;
+
 	// Use this for initialization
 	void Start () {
         pauseMenu = GetComponent<PauseMenu>();
         StartCoroutine(StartMatchAnimation());
         ambientSound = GetComponent<AudioSource>();
         ambientSound.Play();
+        pController = GameObject.FindGameObjectWithTag("Player").GetComponent<Controller>();
 	}
 	
 	// Update is called once per frame
@@ -61,6 +79,7 @@ public class StartMatch : MonoBehaviour {
         yield return new WaitForSeconds(1f);
         panelForTexts.SetActive(false);
         matchStarted = true;
+        pController.matchRunning = true;
     }
 
     //Call this coroutine when a goal is scored

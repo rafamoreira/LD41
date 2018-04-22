@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class PlayerCondition : MonoBehaviour {
 
+    bool isInvincible;
+    float invincibleTimer;
+    Controller pController;
+
     public int currentPlayerPos;
     public int health;
     public List<int> opInContact = new List<int>();
 
-    bool isInvincible;
-    float invincibleTimer;
 
     // positions from 0 to 7
 	// Use this for initialization
@@ -17,6 +19,7 @@ public class PlayerCondition : MonoBehaviour {
         currentPlayerPos = 0;
         isInvincible = false;
         invincibleTimer = 0;
+        pController = GameObject.FindGameObjectWithTag("Player").GetComponent<Controller>();
 	}
 	
 	// Update is called once per frame
@@ -74,8 +77,10 @@ public class PlayerCondition : MonoBehaviour {
     }
 
     void Dead()
-    {
-        Debug.Log("Morreu");
+    {   
+        StartMatch.Instance.StartCoroutine("PlayerLostAnimation");
+        OpponentManager.Instance.StopAll();
+        pController.matchRunning = false;
     }
 
     public void TakePunch()
