@@ -19,6 +19,7 @@ public class OpponentBehavior : MonoBehaviour {
     float stunClock;
     bool isStunned;
     int health;
+    bool isChasing;
 
     // Use this for initialization
     void Start ()
@@ -26,15 +27,17 @@ public class OpponentBehavior : MonoBehaviour {
         pCondition = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCondition>();
 
         speed = Random.Range(0.1f, 1.5f);
-        isActive = true;
+        isActive = false;
         animator = GetComponent<Animator>();
 
         myScale = transform.localScale;
         health = initialHealth;
         stunClock = 0.5f;
-        isStunned = false;
+        isStunned = true;
         healthIndicator.fillAmount = 1;
-	}
+        StartCoroutine("CheckPunchPlayer");
+        isChasing = false;
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -82,6 +85,7 @@ public class OpponentBehavior : MonoBehaviour {
     {
         transform.position = Vector2.MoveTowards(transform.position, pCondition.transform.position, speed * Time.deltaTime);
         ChaseAnim();
+        isChasing = true;
     }
 
     public void TakePunch()
@@ -107,6 +111,7 @@ public class OpponentBehavior : MonoBehaviour {
         stunClock = 0.5f;
         isActive = false;
         isStunned = true;
+        isChasing = false;
         IdleAnim();
     }
 
@@ -122,7 +127,9 @@ public class OpponentBehavior : MonoBehaviour {
         GetComponent<CapsuleCollider2D>().enabled = false;
         IdleAnim();
         isActive = false;
+        isChasing = false;
         healthIndicator.fillAmount = 0;
+        StopCoroutine("CheckPunchPlayer");
     }
 
     void ChaseAnim()
@@ -153,5 +160,28 @@ public class OpponentBehavior : MonoBehaviour {
                 transform.localScale = myScale;
             }
         }
+    }
+
+    void PunchPlayer()
+    {
+        Debug.Log("PUNCHO");
+    }
+
+    IEnumerator CheckPunchPlayer()
+    {
+        while(true)
+        {
+            if(isChasing)
+            {
+                float distance = Vector3.Distance(transform.position, pCondition.transform.position);
+                Debug.Log(distance);
+                if (distance <= 0.25)
+                {
+                    PunchPlayer();
+                }
+            }
+            yield return new WaitForSeconds(0.5f);
+        }
+        
     }
 }
