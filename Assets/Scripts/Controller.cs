@@ -8,7 +8,6 @@ public class Controller : MonoBehaviour
     PlayerCondition pCondition;
     float punchTimer;
     Animator animator;
-    Vector3 myScale;
     AudioSource audioPlayer;
 
     public AudioClip punchSound;
@@ -27,7 +26,6 @@ public class Controller : MonoBehaviour
         pCondition = GetComponent<PlayerCondition>();
         sprite = GetComponent<SpriteRenderer>();
         punchTimer = 0;
-        myScale = transform.localScale;
         matchRunning = false;
         audioPlayer = GetComponent<AudioSource>();
 	}
