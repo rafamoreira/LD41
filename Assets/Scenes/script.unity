@@ -575,11 +575,6 @@ Prefab:
       propertyPath: m_Name
       value: Opponent 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114269246579894936, guid: 5755e429491b635489acc58b58df3a53,
-        type: 2}
-      propertyPath: opponentType
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5755e429491b635489acc58b58df3a53, type: 2}
   m_IsPrefabParent: 0

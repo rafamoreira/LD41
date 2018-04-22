@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class OpponentBehavior : MonoBehaviour {
 
@@ -8,8 +9,8 @@ public class OpponentBehavior : MonoBehaviour {
 
     public OpponentType opponentType;
     public float speed;
-    public int health;
-
+    public int initialHealth;
+    public Image healthIndicator;
 
     PlayerCondition pCondition;
     Animator animator;
@@ -17,9 +18,11 @@ public class OpponentBehavior : MonoBehaviour {
     bool isActive;
     float stunClock;
     bool isStunned;
+    int health;
 
     // Use this for initialization
-    void Start () {
+    void Start ()
+    {
         pCondition = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCondition>();
 
         speed = Random.Range(0.1f, 1.5f);
@@ -27,9 +30,10 @@ public class OpponentBehavior : MonoBehaviour {
         animator = GetComponent<Animator>();
 
         myScale = transform.localScale;
-        health = 3;
+        health = initialHealth;
         stunClock = 0.5f;
         isStunned = false;
+        healthIndicator.fillAmount = 1;
 	}
 	
 	// Update is called once per frame
@@ -91,7 +95,11 @@ public class OpponentBehavior : MonoBehaviour {
         else
         {
             Stun();
+            float healthPercentage = (1f / initialHealth) * (float)health;
+            healthIndicator.fillAmount = healthPercentage;
         }
+
+
     }
 
     void Stun()
@@ -104,7 +112,6 @@ public class OpponentBehavior : MonoBehaviour {
 
     void IdleAnim()
     {
-
         animator.SetBool("Vertical", false);
         animator.SetBool("VerticalBottom", false);
         animator.SetBool("Horizontal", false);
@@ -115,6 +122,7 @@ public class OpponentBehavior : MonoBehaviour {
         GetComponent<CapsuleCollider2D>().enabled = false;
         IdleAnim();
         isActive = false;
+        healthIndicator.fillAmount = 0;
     }
 
     void ChaseAnim()
