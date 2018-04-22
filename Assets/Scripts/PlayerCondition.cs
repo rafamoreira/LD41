@@ -69,6 +69,11 @@ public class PlayerCondition : MonoBehaviour {
         {
             opInContact.Add(OpponentManager.Instance.opponents.IndexOf(other.gameObject));
         }
+
+        if (other.tag == "Gol")
+        {
+            GameManager.Instance.GoalScored();
+        }
     }
 
     private void OnTriggerExit2D(Collider2D other)

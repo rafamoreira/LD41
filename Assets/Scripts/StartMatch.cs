@@ -47,6 +47,7 @@ public class StartMatch : MonoBehaviour {
         ambientSound = GetComponent<AudioSource>();
         ambientSound.Play();
         pController = GameObject.FindGameObjectWithTag("Player").GetComponent<Controller>();
+        Time.timeScale = 1;
 	}
 	
 	// Update is called once per frame

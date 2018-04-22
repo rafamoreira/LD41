@@ -144,7 +144,9 @@ public class OpponentBehavior : MonoBehaviour {
         }
         else
         {
-            Stun();
+            if (opponentType != OpponentType.GK)
+                Stun();
+
             healthPercentage = (1f / initialHealth) * (float)health;
             healthIndicator.fillAmount = healthPercentage;
             if (healthIndicator.fillAmount >= 0.5f) {
@@ -182,6 +184,7 @@ public class OpponentBehavior : MonoBehaviour {
         isActive = false;
         isChasing = false;
         healthIndicator.fillAmount = 0;
+        GameManager.Instance.OpponentDown();
         StopCoroutine("CheckPunchPlayer");
     }
 
@@ -238,7 +241,6 @@ public class OpponentBehavior : MonoBehaviour {
             if(isChasing)
             {
                 float distance = Vector3.Distance(transform.position, pCondition.transform.position);
-                Debug.Log(distance);
                 if (distance <= 0.25)
                 {
                     PunchPlayer();

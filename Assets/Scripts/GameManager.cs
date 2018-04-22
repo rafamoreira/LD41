@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
@@ -20,20 +21,28 @@ public class GameManager : MonoBehaviour {
     }
 
     public int opponentCurId;
+    public int opponentsDown;
+    public int goals;
 
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
     }
-    
-    // Use this for initialization
-    void Start ()
+
+    public void GoalScored()
     {
-        
-	}
-	
-	// Update is called once per frame
-	void Update () {
-                
-	}
+        StartMatch.Instance.StartCoroutine("GoalAnimation");
+        OpponentManager.Instance.StopAll();
+        GameObject.FindGameObjectWithTag("Player").GetComponent<Controller>().matchRunning = false;
+        Time.timeScale = 0;
+        goals += 1;
+        SceneManager.LoadScene("2");
+    }
+
+
+    public void OpponentDown()
+    {
+        opponentsDown += 1;
+    }
+
 }
